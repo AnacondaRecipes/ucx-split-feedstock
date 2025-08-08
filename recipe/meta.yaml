@@ -35,7 +35,7 @@ requirements:
     - pkg-config
     - libgomp
   host:
-    - cuda-version 12.4
+    - cuda-version {{ cuda_compiler_version }}
     - cuda-cudart-dev  # [cuda_compiler == "cuda-nvcc"]
     - cuda-nvml-dev  # [cuda_compiler == "cuda-nvcc"]
     - rdma-core 58.0
