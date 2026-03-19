@@ -1,0 +1,7 @@
+cuda_compiler:                     # [linux]
+  - cuda-nvcc                      # [linux]
+
+cuda_compiler_version:             # [linux]
+  - 12.9                           # [linux]
+  - 13.0                           # [linux]
+  - 13.1                           # [linux]
