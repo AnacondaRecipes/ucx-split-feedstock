@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/openucx/ucx/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz
+  url: https://github.com/open{{ name }}/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz
   sha256: 7c8a6093cada179aa1d851b83625e3b25ed5658966e309de5118c27a038c7ef9
 
 build:
