@@ -10,7 +10,7 @@ source:
   sha256: 7c8a6093cada179aa1d851b83625e3b25ed5658966e309de5118c27a038c7ef9
 
 build:
-  number: 0
+  number: 1
   skip: True  # [(not linux) or cuda_compiler_version in (undefined, "None", "12.6")]
   ignore_run_exports_from:
     - {{ compiler("cuda") }}
@@ -38,7 +38,10 @@ requirements:
     - cuda-version {{ cuda_compiler_version }}
     - cuda-cudart-dev  # [cuda_compiler == "cuda-nvcc"]
     - cuda-nvml-dev  # [cuda_compiler == "cuda-nvcc"]
-    - rdma-core
+    - rdma-core 58.0
+    - libgomp # [linux]
+  run:
+    - libgomp # [linux]
   run_constrained:
     - {{ pin_compatible("cuda-version", min_pin="x") }}  # [cuda_compiler == "cuda-nvcc"]
     # The actual version constraint comes from cuda-version, so below we explicit list
