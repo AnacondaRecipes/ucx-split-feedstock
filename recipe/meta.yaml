@@ -1,5 +1,5 @@
 {% set name = "ucx" %}
-{% set version = "1.20.0" %}
+{% set version = "1.22.0" %}
 
 package:
   name: {{ name }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://github.com/open{{ name }}/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 7c8a6093cada179aa1d851b83625e3b25ed5658966e309de5118c27a038c7ef9
+  sha256: 258941cddd14ca60d38c0d31b9b09ec1052c901086841011a498da8b55a3cb24
 
 build:
-  number: 1
-  skip: True  # [(not linux) or cuda_compiler_version in (undefined, "None", "12.6")]
+  number: 0
+  skip: true  # [(not linux) or cuda_compiler_version in (undefined, "None", "12.6")]
   ignore_run_exports_from:
     - {{ compiler("cuda") }}
     - cuda-cudart-dev  # [cuda_compiler == "cuda-nvcc"]
@@ -39,9 +39,9 @@ requirements:
     - cuda-cudart-dev  # [cuda_compiler == "cuda-nvcc"]
     - cuda-nvml-dev  # [cuda_compiler == "cuda-nvcc"]
     - rdma-core 58.0
-    - libgomp # [linux]
+    - libgomp  # [linux]
   run:
-    - libgomp # [linux]
+    - libgomp  # [linux]
   run_constrained:
     - {{ pin_compatible("cuda-version", min_pin="x") }}  # [cuda_compiler == "cuda-nvcc"]
     # The actual version constraint comes from cuda-version, so below we explicit list
