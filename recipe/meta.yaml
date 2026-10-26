@@ -1,5 +1,5 @@
 {% set name = "ucx" %}
-{% set version = "1.20.0" %}
+{% set version = "1.22.0" %}
 
 package:
   name: {{ name }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://github.com/open{{ name }}/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 7c8a6093cada179aa1d851b83625e3b25ed5658966e309de5118c27a038c7ef9
+  sha256: 258941cddd14ca60d38c0d31b9b09ec1052c901086841011a498da8b55a3cb24
 
 build:
-  number: 1
-  skip: True  # [(not linux) or cuda_compiler_version in (undefined, "None", "12.6")]
+  number: 0
+  skip: true  # [(not linux) or cuda_compiler_version in (undefined, "None", "12.6")]
   ignore_run_exports_from:
-    - {{ compiler("cuda") }}
+    - {{ compiler('cuda') }}
     - cuda-cudart-dev  # [cuda_compiler == "cuda-nvcc"]
   missing_dso_whitelist:
     - "*libcuda.so*"
@@ -24,10 +24,10 @@ build:
 
 requirements:
   build:
-    - {{ stdlib("c") }}
-    - {{ compiler("c") }}
-    - {{ compiler("cxx") }}
-    - {{ compiler("cuda") }}
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('cuda') }}
     - automake
     - autoconf
     - libtool
@@ -38,7 +38,7 @@ requirements:
     - cuda-version {{ cuda_compiler_version }}
     - cuda-cudart-dev  # [cuda_compiler == "cuda-nvcc"]
     - cuda-nvml-dev  # [cuda_compiler == "cuda-nvcc"]
-    - rdma-core 58.0
+    - rdma-core {{ rdma_core }}
     - libgomp # [linux]
   run:
     - libgomp # [linux]
@@ -61,10 +61,14 @@ test:
     - test ! -f "${PREFIX}/lib/libuct.a"
     - test -f "${PREFIX}/bin/.ucx-post-link.sh"
     - test -f "${PREFIX}/bin/ucx_info"
+    - test -f "${PREFIX}/lib/ucx/libuct_cuda.so"
+    - test -f "${PREFIX}/lib/ucx/libucm_cuda.so"
     - ucx_info -v
+    - ucx_info -b
+    - ucx_info -c
 
 about:
-  home: https://openucx.org
+  home: https://github.com/openucx/ucx
   summary: Unified Communication X.
   license: BSD-3-Clause
   license_family: BSD
